@@ -9,34 +9,9 @@ for dep in $deps; do
   }
 done
 
-# IMPORTANT CONSTANTS
-DIR_LIST="about contact blog"
-
 # FILE CONVERSION
-convert() {
-  [ -z "$1" ] && FILENAME="index" || FILENAME="$1"
-  pandoc "$FILENAME.md" \
-      -o "./docs/$FILENAME.html" \
-      --standalone \
-      --template="./template.html" \
-      --css "/assets/style.css" \
-      --css "/assets/custom.css" \
-      --variable=lastUpdated:$( stat -c %y $FILENAME.md | cut -f 1 -d ' ' ) \
-      --variable=creationDate:$( stat -c %w $FILENAME.md | cut -f 1 -d ' ' )
-}
-
-main() {
-  MY_PATH="$HOME"
-  SITE_PATH=$MY_PATH/site
-
-  find $SITE_PATH -name *.md -exec process_md_file {} \;
-
-  exit 0;
-}
-
 process_md_file() {
-  MY_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-  SITE_PATH=$MY_PATH/site
+  SITE_PATH=$HOME/site
 
   fullpath=$1
   dirpath=$( dirname $1 )
@@ -53,13 +28,22 @@ process_md_file() {
   pandoc $fullpath \
     -o $dirpath/$targetfile \
     --standalone \
-    --css "/css/milligram.min.css" \
-    --css "/css/custom.css" \
-    --template=$MY_PATH/template.html \
+    --css "/assets/style.css" \
+    --css "/assets/custom.css" \
+    --template=$SITE_PATH/template/template.html \
     --variable=lastUpdated:$lastUpdated \
     --variable=creationDate:$creationDate ;
 
   return
+}
+
+# recursively convert all .md files in current directory
+main() {
+  SITE_PATH=$HOME/site
+
+  find $SITE_PATH -name *.md -exec process_md_file {} \;
+
+  exit 0;
 }
 
 main
