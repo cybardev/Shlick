@@ -2,6 +2,8 @@
 
 ## [Work In Progress]
 
+Trying to follow [this guide](https://www.romangeber.com/static_websites_with_pandoc/).
+
 directory structure:
 .
 ├── about
