@@ -28,8 +28,8 @@ convert() {
   pandoc $fullpath \
     -o $dirpath/$targetfile \
     --standalone \
-    --css "/assets/style.css" \
-    --css "/assets/custom.css" \
+    --css "/assets/css/style.css" \
+    --css "/assets/css/custom.css" \
     --template=$SITE_PATH/template/template.html \
     --variable=lastUpdated:$lastUpdated \
     --variable=creationDate:$creationDate ;
