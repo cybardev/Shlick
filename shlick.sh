@@ -9,10 +9,11 @@ for dep in $deps; do
     }
 done
 
+# IMPORTANT CONSTANTS
+SITE_PATH=$(pwd)
+
 # FILE CONVERSION
 convert() {
-    SITE_PATH=$(pwd)
-
     fullpath=$1
     dirpath=$( dirname $1 )
     sourcefile=$( basename $1 )
@@ -39,8 +40,6 @@ convert() {
 
 # recursively convert all .md files in current directory
 main() {
-    SITE_PATH=$(pwd)
-
     find $SITE_PATH -name *.md -exec convert {} \;
 
     exit 0;
