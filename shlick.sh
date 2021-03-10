@@ -16,7 +16,7 @@ convert() {
     fullpath=$1
     dirpath=$( dirname $1 )
     sourcefile=$( basename $1 )
-    targetfile="$(find '$SITE_PATH' -wholename '$SITE_PATH/*.md' -exec sh -c 'basename {} .md' \;).html"
+    targetfile="$(find '$SITE_PATH/' -name '*.md' -exec sh -c 'basename {} .md' \;).html"
 
     # Use git to get creation and modification date
     lastUpdated=$( git log -1 --format="%ci" -- $fullpath | cut -f 1 -d ' ' )
@@ -28,8 +28,8 @@ convert() {
     pandoc $fullpath \
         -o $dirpath/$targetfile \
         --standalone \
-        --css "/assets/css/style.css" \
-        --css "/assets/css/custom.css" \
+        --css "$SITE_PATH/assets/css/style.css" \
+        --css "$SITE_PATH/assets/css/custom.css" \
         --template=$SITE_PATH/template/template.html \
         --variable=lastUpdated:$lastUpdated \
         --variable=creationDate:$creationDate ;
