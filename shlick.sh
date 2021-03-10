@@ -10,7 +10,7 @@ for dep in $deps; do
 done
 
 # FILE CONVERSION
-process_md_file() {
+convert() {
   SITE_PATH=$(pwd)
 
   fullpath=$1
@@ -41,7 +41,7 @@ process_md_file() {
 main() {
   SITE_PATH=$(pwd)
 
-  find $SITE_PATH -name *.md -exec process_md_file {} \;
+  find $SITE_PATH -name *.md -exec convert {} \;
 
   exit 0;
 }
