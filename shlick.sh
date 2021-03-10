@@ -11,12 +11,12 @@ done
 
 # FILE CONVERSION
 process_md_file() {
-  SITE_PATH=$HOME/site
+  SITE_PATH=$(pwd)
 
   fullpath=$1
   dirpath=$( dirname $1 )
   sourcefile=$( basename $1 )
-  targetfile=$(echo "$sourcefile" | cut -f 1 -d '.')'.html'
+  targetfile="$(find '$SITE_PATH' -wholename '$SITE_PATH/*.md' -exec sh -c 'basename {} .md' \;).html"
 
   # Use git to get creation and modification date
   lastUpdated=$( git log -1 --format="%ci" -- $fullpath | cut -f 1 -d ' ' )
@@ -39,7 +39,7 @@ process_md_file() {
 
 # recursively convert all .md files in current directory
 main() {
-  SITE_PATH=$HOME/site
+  SITE_PATH=$(pwd)
 
   find $SITE_PATH -name *.md -exec process_md_file {} \;
 
