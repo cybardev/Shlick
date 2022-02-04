@@ -5,6 +5,8 @@
 Trying to follow [this guide](https://www.romangeber.com/static_websites_with_pandoc/).
 
 directory structure:
+
+```
 .
 ├── about
 │   └── index.md
@@ -23,3 +25,4 @@ directory structure:
 ├── contact
 │   └── index.md
 └── index.md
+```
